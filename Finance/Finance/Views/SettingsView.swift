@@ -2,16 +2,25 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 struct SettingsView: View {
-    @Environment(\.dismiss) var dismiss
+    @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var store: TransactionStore
-    @AppStorage("isDarkMode") private var isDarkMode = false
-    @State private var selectedCurrency: Currency
+    @StateObject var goalStore: GoalStore
+    @State private var selectedCurrency: Settings.Currency = .kzt
+    @State private var isDarkMode = false
     @State private var showingAddGoal = false
     @State private var showingShareSheet = false
     @State private var csvString: String = ""
     
-    init(store: TransactionStore) {
-        _selectedCurrency = State(initialValue: store.settings.currency)
+    init(goalStore: GoalStore) {
+        _goalStore = StateObject(wrappedValue: goalStore)
+    }
+    
+    private var incomeCategories: [Category] {
+        store.categories.filter { $0.type == .income }
+    }
+    
+    private func addGoal(_ goal: FinancialGoal) {
+        goalStore.addGoal(goal)
     }
     
     var body: some View {
@@ -20,7 +29,7 @@ struct SettingsView: View {
                 // Валюта
                 Section("Валюта") {
                     Picker("Выберите валюту", selection: $selectedCurrency) {
-                        ForEach(Currency.allCases, id: \.self) { currency in
+                        ForEach(Settings.Currency.allCases, id: \.self) { currency in
                             HStack {
                                 Text(currency.rawValue)
                                 Text(currency.name)
@@ -57,7 +66,7 @@ struct SettingsView: View {
                 }
             }
             .navigationTitle("Настройки")
-            .navigationBarItems(leading: Button("Закрыть") { dismiss() })
+            .navigationBarItems(leading: Button("Закрыть") { presentationMode.wrappedValue.dismiss() })
             .sheet(isPresented: $showingAddGoal) {
                 AddGoalView()
             }

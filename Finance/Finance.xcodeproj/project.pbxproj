@@ -14,11 +14,15 @@
 		BB9958E12D091DA70048F4A1 /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB9958DF2D091DA70048F4A1 /* Color+Hex.swift */; };
 		BB9958E62D091DB50048F4A1 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB9958E22D091DB50048F4A1 /* Category.swift */; };
 		BB9958E72D091DB50048F4A1 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB9958E32D091DB50048F4A1 /* Transaction.swift */; };
-		BB9958E82D091DB50048F4A1 /* TransactionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB9958E42D091DB50048F4A1 /* TransactionStore.swift */; };
 		BB9958EB2D091DD50048F4A1 /* AddTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB9958E92D091DD50048F4A1 /* AddTransactionView.swift */; };
 		BB9958ED2D0921AD0048F4A1 /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB9958EC2D0921AD0048F4A1 /* AnalyticsView.swift */; };
 		BB9958EF2D092E4D0048F4A1 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB9958EE2D092E4D0048F4A1 /* Settings.swift */; };
 		BB9958F12D092E5D0048F4A1 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB9958F02D092E5D0048F4A1 /* SettingsView.swift */; };
+		BBA5578F2D0B9764001A1AF4 /* FinancialGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA5578E2D0B9764001A1AF4 /* FinancialGoal.swift */; };
+		BBA557922D0B9770001A1AF4 /* GoalNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA557902D0B9770001A1AF4 /* GoalNotificationManager.swift */; };
+		BBA557942D0B9785001A1AF4 /* GoalProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA557932D0B9785001A1AF4 /* GoalProgressView.swift */; };
+		BBA557982D0B9791001A1AF4 /* GoalStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA557952D0B9791001A1AF4 /* GoalStore.swift */; };
+		BBA557992D0B9791001A1AF4 /* TransactionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA557962D0B9791001A1AF4 /* TransactionStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,11 +34,15 @@
 		BB9958DF2D091DA70048F4A1 /* Color+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
 		BB9958E22D091DB50048F4A1 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		BB9958E32D091DB50048F4A1 /* Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
-		BB9958E42D091DB50048F4A1 /* TransactionStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionStore.swift; sourceTree = "<group>"; };
 		BB9958E92D091DD50048F4A1 /* AddTransactionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTransactionView.swift; sourceTree = "<group>"; };
 		BB9958EC2D0921AD0048F4A1 /* AnalyticsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
 		BB9958EE2D092E4D0048F4A1 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		BB9958F02D092E5D0048F4A1 /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		BBA5578E2D0B9764001A1AF4 /* FinancialGoal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinancialGoal.swift; sourceTree = "<group>"; };
+		BBA557902D0B9770001A1AF4 /* GoalNotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalNotificationManager.swift; sourceTree = "<group>"; };
+		BBA557932D0B9785001A1AF4 /* GoalProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalProgressView.swift; sourceTree = "<group>"; };
+		BBA557952D0B9791001A1AF4 /* GoalStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalStore.swift; sourceTree = "<group>"; };
+		BBA557962D0B9791001A1AF4 /* TransactionStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +75,8 @@
 		BB9958D02D091C5B0048F4A1 /* Finance */ = {
 			isa = PBXGroup;
 			children = (
+				BBA557972D0B9791001A1AF4 /* Store */,
+				BBA557912D0B9770001A1AF4 /* Notifications */,
 				BB9958EA2D091DD50048F4A1 /* Views */,
 				BB9958E02D091DA70048F4A1 /* Extensions */,
 				BB9958E52D091DB50048F4A1 /* Models */,
@@ -97,9 +107,9 @@
 		BB9958E52D091DB50048F4A1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				BBA5578E2D0B9764001A1AF4 /* FinancialGoal.swift */,
 				BB9958E22D091DB50048F4A1 /* Category.swift */,
 				BB9958E32D091DB50048F4A1 /* Transaction.swift */,
-				BB9958E42D091DB50048F4A1 /* TransactionStore.swift */,
 				BB9958EE2D092E4D0048F4A1 /* Settings.swift */,
 			);
 			name = Models;
@@ -109,12 +119,31 @@
 		BB9958EA2D091DD50048F4A1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				BBA557932D0B9785001A1AF4 /* GoalProgressView.swift */,
 				BB9958EC2D0921AD0048F4A1 /* AnalyticsView.swift */,
 				BB9958E92D091DD50048F4A1 /* AddTransactionView.swift */,
 				BB9958F02D092E5D0048F4A1 /* SettingsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
+		};
+		BBA557912D0B9770001A1AF4 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				BBA557902D0B9770001A1AF4 /* GoalNotificationManager.swift */,
+			);
+			path = Notifications;
+			sourceTree = "<group>";
+		};
+		BBA557972D0B9791001A1AF4 /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				BBA557952D0B9791001A1AF4 /* GoalStore.swift */,
+				BBA557962D0B9791001A1AF4 /* TransactionStore.swift */,
+			);
+			name = Store;
+			path = Finance/Store;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -186,14 +215,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBA557982D0B9791001A1AF4 /* GoalStore.swift in Sources */,
 				BB9958EB2D091DD50048F4A1 /* AddTransactionView.swift in Sources */,
 				BB9958ED2D0921AD0048F4A1 /* AnalyticsView.swift in Sources */,
-				BB9958E82D091DB50048F4A1 /* TransactionStore.swift in Sources */,
 				BB9958D42D091C5B0048F4A1 /* ContentView.swift in Sources */,
 				BB9958D22D091C5B0048F4A1 /* FinanceApp.swift in Sources */,
+				BBA557992D0B9791001A1AF4 /* TransactionStore.swift in Sources */,
 				BB9958F12D092E5D0048F4A1 /* SettingsView.swift in Sources */,
 				BB9958E12D091DA70048F4A1 /* Color+Hex.swift in Sources */,
+				BBA5578F2D0B9764001A1AF4 /* FinancialGoal.swift in Sources */,
+				BBA557942D0B9785001A1AF4 /* GoalProgressView.swift in Sources */,
 				BB9958EF2D092E4D0048F4A1 /* Settings.swift in Sources */,
+				BBA557922D0B9770001A1AF4 /* GoalNotificationManager.swift in Sources */,
 				BB9958E62D091DB50048F4A1 /* Category.swift in Sources */,
 				BB9958E72D091DB50048F4A1 /* Transaction.swift in Sources */,
 			);
@@ -329,6 +362,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Finance/Preview Content\"";
+				DEVELOPMENT_TEAM = 7MXGHGHD2W;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -357,6 +391,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Finance/Preview Content\"";
+				DEVELOPMENT_TEAM = 7MXGHGHD2W;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

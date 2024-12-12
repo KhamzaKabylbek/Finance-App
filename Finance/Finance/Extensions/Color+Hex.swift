@@ -25,4 +25,96 @@ extension Color {
             opacity: Double(a) / 255
         )
     }
+}
+
+// Добавим расширение для создания стандартной тени
+extension View {
+    func standardShadow() -> some View {
+        self.shadow(
+            color: Color.black.opacity(0.08),
+            radius: 15,
+            x: 0,
+            y: 5
+        )
+    }
+    
+    // Стандартное скругление углов
+    func standardCornerRadius() -> some View {
+        self.cornerRadius(16)
+    }
+    
+    // Градиентный фон для карточек
+    func cardGradientBackground() -> some View {
+        self.background(Color.cardBackground)
+    }
+    
+    // Комбинированный стиль для карточек
+    func cardStyle() -> some View {
+        self
+            .cardGradientBackground()
+            .standardCornerRadius()
+            .standardShadow()
+    }
+    
+    // Стиль для отображения основной суммы баланса
+    func balanceTextStyle() -> some View {
+        self
+            .font(.system(size: 36, weight: .bold))
+            .foregroundColor(.primaryText)
+    }
+    
+    // Стиль для подписей и второстепенного текста
+    func captionTextStyle() -> some View {
+        self
+            .font(.system(size: 16, weight: .medium))
+            .foregroundColor(.secondaryText)
+    }
+    
+    // Стиль для кнопок доходов/расходов
+    func transactionButtonStyle(isIncome: Bool) -> some View {
+        self
+            .padding(.vertical, 12)
+            .padding(.horizontal, 24)
+            .background(
+                LinearGradient(
+                    gradient: Gradient(colors: [
+                        isIncome ? Color(hex: "4CAF50") : Color(hex: "FF5252"),
+                        isIncome ? Color(hex: "45A049") : Color(hex: "F44336")
+                    ]),
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+            )
+            .cornerRadius(12)
+            .shadow(
+                color: isIncome ? Color(hex: "4CAF50").opacity(0.3) : Color(hex: "FF5252").opacity(0.3),
+                radius: 8,
+                x: 0,
+                y: 4
+            )
+            .foregroundColor(.white)
+            .font(.system(size: 16, weight: .semibold))
+    }
+}
+
+// Основные цвета приложения
+extension Color {
+    static let primaryBackground = Color(hex: "F5F6FA").opacity(0.9)
+    
+    // Цвета для светлой/тёмной темы
+    static let cardBackground = Color(UIColor { traitCollection in
+        switch traitCollection.userInterfaceStyle {
+        case .dark:
+            return UIColor.systemGray6 // Серый цвет для темной темы
+        default:
+            return UIColor.systemBackground // Белый для светлой темы
+        }
+    })
+    static let primaryText = Color(.label)
+    static let secondaryText = Color(.secondaryLabel)
+    
+    // Акцентные цвета остаются теми же
+    static let accent = Color(hex: "5C6CFF")
+    static let incomeGreen = Color(hex: "4CAF50")
+    static let expenseRed = Color(hex: "FF5252")
 } 

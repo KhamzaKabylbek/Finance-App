@@ -13,91 +13,117 @@ struct ContentView: View {
     @State private var showingAnalytics = false
     @State private var showingSettings = false
     @State private var selectedTransactionType: TransactionType = .expense
+    @StateObject private var goalStore = GoalStore()
     
     var body: some View {
         NavigationView {
-            VStack(spacing: 0) {
-                VStack(alignment: .leading, spacing: 24) {
-                    Text("Мой бюджет")
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .padding(.horizontal)
-                        .padding(.top, 8)
-                    
-                    // Баланс
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("Текущий баланс")
-                            .font(.subheadline)
-                            .foregroundColor(.gray)
-                        Text(store.formatAmount(store.totalBalance))
-                            .font(.title2)
-                            .fontWeight(.semibold)
-                    }
-                    .padding(.vertical, 16)
-                    .padding(.horizontal)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(Color(.systemGray6))
-                    .cornerRadius(12)
-                    .padding(.horizontal)
-                    
-                    // Быстрые действия
-                    HStack(spacing: 16) {
-                        ActionButton(title: "Доход", icon: "plus", color: .green) {
-                            selectedTransactionType = .income
-                            showingAddTransaction = true
-                        }
-                        
-                        ActionButton(title: "Расход", icon: "minus", color: .red) {
-                            selectedTransactionType = .expense
-                            showingAddTransaction = true
-                        }
-                    }
-                    .padding(.horizontal)
-                }
-                .padding(.top)
+            ZStack {
+                Color(.systemGroupedBackground)
+                    .ignoresSafeArea()
                 
-                // Последние транзакции
-                VStack(alignment: .leading, spacing: 16) {
-                    Text("Последние транзакции")
-                        .font(.headline)
-                        .padding(.horizontal)
-                        .padding(.top, 24)
-                    
-                    List {
-                        ForEach(store.transactions) { transaction in
-                            TransactionRowNew(transaction: transaction)
-                                .padding(.vertical, 4)
+                VStack(spacing: 0) {
+                    VStack(alignment: .leading, spacing: 24) {
+                        Text("Мой бюджет")
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .foregroundColor(.primaryText)
+                            .padding(.horizontal)
+                            .padding(.top, 8)
+                        
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text("Текущий баланс")
+                                .captionTextStyle()
+                            Text(store.formatAmount(store.totalBalance))
+                                .balanceTextStyle()
                         }
-                        .onDelete { indexSet in
-                            indexSet.forEach { index in
-                                store.deleteTransaction(store.transactions[index])
+                        .padding(.vertical, 20)
+                        .padding(.horizontal)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .cardStyle()
+                        .padding(.horizontal)
+                        
+                        HStack(spacing: 16) {
+                            Button(action: {
+                                selectedTransactionType = .income
+                                showingAddTransaction = true
+                            }) {
+                                HStack {
+                                    Image(systemName: "arrow.down")
+                                    Text("Доход")
+                                }
+                            }
+                            .transactionButtonStyle(isIncome: true)
+                            .frame(width: 140)
+                            
+                            Button(action: {
+                                selectedTransactionType = .expense
+                                showingAddTransaction = true
+                            }) {
+                                HStack {
+                                    Image(systemName: "arrow.up")
+                                    Text("Расход")
+                                }
+                            }
+                            .transactionButtonStyle(isIncome: false)
+                            .frame(width: 140)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding(.horizontal)
+                    }
+                    .padding(.top)
+                    
+//                    VStack(alignment: .leading, spacing: 16) {
+//                        Text("Финансовые цели")
+//                            .font(.headline)
+//                            .foregroundColor(.primaryText)
+//                            .padding(.horizontal)
+//                        
+//                        ForEach(goalStore.goals) { goal in
+//                            GoalProgressView(goal: goal)
+//                                .padding(.horizontal)
+//                        }
+//                    }
+                    
+                    VStack(alignment: .leading, spacing: 16) {
+                        Text("Последние транзакции")
+                            .font(.headline)
+                            .foregroundColor(.primaryText)
+                            .padding(.horizontal)
+                            .padding(.top, 24)
+                        
+                        List {
+                            ForEach(store.transactions) { transaction in
+                                TransactionRowNew(transaction: transaction)
+                                    .listRowSeparator(.hidden)
+                                    .listRowInsets(EdgeInsets())
+                                    .listRowBackground(Color.clear)
+                            }
+                            .onDelete { indexSet in
+                                indexSet.forEach { index in
+                                    store.deleteTransaction(store.transactions[index])
+                                }
                             }
                         }
+                        .listStyle(PlainListStyle())
+                        .scrollContentBackground(.hidden)
                     }
-                    .listStyle(PlainListStyle())
-                    .scrollContentBackground(.hidden)
                 }
             }
-            .background(Color.white)
             .navigationBarItems(
                 leading: Button(action: { showingAnalytics = true }) {
                     HStack(spacing: 8) {
                         Image(systemName: "chart.pie.fill")
-                            .font(.system(size: 18))
                         Text("Аналитика")
-                            .font(.system(size: 16, weight: .medium))
                     }
                     .padding(.horizontal, 12)
                     .padding(.vertical, 6)
-                    .background(
-                        Capsule()
-                            .fill(Color.blue.opacity(0.1))
-                    )
-                    .foregroundColor(.blue)
+                    .background(Color.accent.opacity(0.1))
+                    .cornerRadius(20)
+                    .foregroundColor(.accent)
                 },
                 trailing: Button(action: { showingSettings = true }) {
                     Image(systemName: "gear")
-                        .font(.system(size: 18))
+                        .foregroundColor(.primaryText)
                 }
             )
             .sheet(isPresented: $showingAddTransaction) {
@@ -109,7 +135,7 @@ struct ContentView: View {
                     .environmentObject(store)
             }
             .sheet(isPresented: $showingSettings) {
-                SettingsView(store: store)
+                SettingsView(goalStore: GoalStore())
                     .environmentObject(store)
             }
         }
@@ -125,23 +151,23 @@ struct ActionButton: View {
     var body: some View {
         Button(action: action) {
             HStack {
-                Circle()
-                    .fill(color)
-                    .frame(width: 24, height: 24)
-                    .overlay(
-                        Image(systemName: icon)
-                            .font(.caption)
-                            .foregroundColor(.white)
-                    )
+                Image(systemName: icon)
+                    .font(.system(size: 16, weight: .semibold))
                 Text(title)
-                    .font(.subheadline)
-                    .foregroundColor(.primary)
+                    .font(.system(size: 16, weight: .semibold))
             }
-            .padding(.vertical, 16)
-            .padding(.horizontal, 12)
+            .padding(.vertical, 12)
             .frame(maxWidth: .infinity)
-            .background(Color(.systemGray6))
-            .cornerRadius(8)
+            .background(
+                LinearGradient(
+                    gradient: Gradient(colors: [color, color.opacity(0.8)]),
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+            )
+            .foregroundColor(.white)
+            .cornerRadius(12)
+            .standardShadow()
         }
     }
 }
@@ -161,10 +187,11 @@ struct TransactionRowNew: View {
                 Text(transaction.category.name)
                     .font(.subheadline)
                     .fontWeight(.medium)
+                    .foregroundColor(.primaryText)
                 if !transaction.note.isEmpty {
                     Text(transaction.note)
                         .font(.caption)
-                        .foregroundColor(.gray)
+                        .foregroundColor(.secondaryText)
                 }
             }
             
@@ -173,11 +200,15 @@ struct TransactionRowNew: View {
             Text("\(transaction.type == .income ? "+" : "-")\(store.formatAmount(transaction.amount))")
                 .font(.subheadline)
                 .fontWeight(.medium)
-                .foregroundColor(transaction.type == .income ? .green : .red)
+                .foregroundColor(transaction.type == .income ? .incomeGreen : .expenseRed)
         }
+        .padding(.vertical, 8)
+        .padding(.horizontal)
+        .background(Color.cardBackground)
+        .cornerRadius(12)
+        .standardShadow()
+        .padding(.horizontal)
         .padding(.vertical, 4)
-        .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
-        .listRowBackground(Color.clear)
     }
 }
 
